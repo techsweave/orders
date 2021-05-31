@@ -14,14 +14,15 @@ const scanOrder = async (filter: any, userId?: string): Promise<{
     if (userId) {
         conditionFilter = {
             type: 'And',
-            conditions: [{
-                type: 'Equals',
-                subject: 'userId',
-                object: userId
-            },
+            conditions: [
+                {
+                    type: 'Equals',
+                    subject: 'userId',
+                    object: userId
+                },
                 conditionFilter
             ]
-        }
+        };
     }
     const dbFilter: ScanOptions = {
         limit: filter.limit,

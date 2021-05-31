@@ -1,6 +1,6 @@
 import dbContext from '@dbModel/dbContext';
 import Order from '@dbModel/tables/order';
-import getOrder from '../getOrder/function'
+import getOrder from '../getOrder/function';
 
 const deleteOrder = async (id: string, userId: string): Promise<Order> => {
     const item: Order = new Order();

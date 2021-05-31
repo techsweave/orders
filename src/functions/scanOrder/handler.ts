@@ -1,5 +1,4 @@
 import 'source-map-support/register';
-
 import Order from '@dbModel/tables/order';
 import scanOrder from './function';
 
