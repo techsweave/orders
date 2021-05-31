@@ -1,4 +1,3 @@
-// import schema from './schema';
 import { handlerPath } from 'utilities-techsweave';
 
 export default {

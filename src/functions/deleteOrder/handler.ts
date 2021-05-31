@@ -13,7 +13,7 @@ const deleteOrderHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (even
     let res: Response<Order>;
     try {
 
-        //const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
 
         res = Response.fromData<Order>(
             await deleteOrder(event.pathParameters.id),

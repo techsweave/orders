@@ -14,7 +14,7 @@ import { table } from '@aws/dynamodb-data-mapper-annotations';
 const getOrderHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     let response: Response<Order>;
     try {
-        //const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
         response = Response.fromData<Order>(
             await getOrder(event.pathParameters?.id),
             StatusCodes.OK);
