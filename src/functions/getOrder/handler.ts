@@ -16,7 +16,7 @@ const getOrderHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) 
     try {
         const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
         response = Response.fromData<Order>(
-            await getOrder(event.pathParameters?.id),
+            await getOrder(event.pathParameters?.id, await user.getUserId()),
             StatusCodes.OK);
     }
     catch (error) {
