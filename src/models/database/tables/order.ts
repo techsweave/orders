@@ -6,12 +6,6 @@ import {
 
 import { Models } from 'utilities-techsweave';
 
-// interface SpecValue {
-//     fieldName: string;
-//     unitMisure: string;
-//     value: any;
-// }
-
 /*
  * This class rappresent a product item in products table
  */
