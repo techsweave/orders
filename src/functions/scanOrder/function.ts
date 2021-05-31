@@ -1,15 +1,15 @@
 import dbContext from '@dbModel/dbContext';
-import Product from '@dbModel/tables/product';
+import Order from '@dbModel/tables/order';
 import { ScanOptions } from '@aws/dynamodb-data-mapper';
 import { objectToConditionExpression } from 'utilities-techsweave';
 
 
-const scanProduct = async (filter: any): Promise<{
-    items: Product[],
-    lastKey: Partial<Product>
+const scanOrder = async (filter: any): Promise<{
+    items: Order[],
+    lastKey: Partial<Order>
 }> => {
-    let items: Product[] = [];
-    let lastKey: Partial<Product>;
+    let items: Order[] = [];
+    let lastKey: Partial<Order>;
     const dbFilter: ScanOptions = {
         limit: filter.limit,
         indexName: filter.indexName,
@@ -18,7 +18,7 @@ const scanProduct = async (filter: any): Promise<{
         filter: await objectToConditionExpression(filter.filter)
     };
 
-    const paginator = dbContext.scan(Product, dbFilter).pages();
+    const paginator = dbContext.scan(Order, dbFilter).pages();
 
     for await (const page of paginator) {
         items = items.concat(page);
@@ -31,4 +31,4 @@ const scanProduct = async (filter: any): Promise<{
     });
 };
 
-export default scanProduct;
+export default scanOrder;

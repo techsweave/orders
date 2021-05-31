@@ -1,6 +1,6 @@
 // import schema from './schema';
 import { handlerPath } from 'utilities-techsweave';
-import schema from '@functions/products/scanProduct/schema';
+import schema from './schema';
 
 export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
@@ -8,12 +8,16 @@ export default {
         {
             http: {
                 method: 'post',
-                path: 'products/filter',
+                path: 'orders',
                 cors: true,
                 request: {
                     schemas: {
                         'application/json': schema
                     }
+                },
+                authorizer: {
+                    name: 'ApiGatewayAuthorizer',
+                    arn: '${self:custom.cognitoArn}'
                 }
             }
         }
