@@ -22,7 +22,6 @@ export default {
         indexName: { type: 'string' },
         limit: { type: 'number' },
         pageSize: { type: 'number' },
-        // readConsistency: { type: 'string' },
         startKey: {
             type: 'object',
             properties: {

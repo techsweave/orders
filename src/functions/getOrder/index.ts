@@ -1,4 +1,3 @@
-// import schema from './schema';
 import { handlerPath } from 'utilities-techsweave';
 
 export default {
@@ -7,10 +6,13 @@ export default {
         {
             http: {
                 method: 'get',
-                path: 'cart',
-                cors: true
+                path: 'orders/{id}',
+                cors: true,
+                authorizer: {
+                    name: 'ApiGatewayAuthorizer',
+                    arn: '${self:custom.cognitoArn}'
+                }
             }
         }
     ]
 };
-

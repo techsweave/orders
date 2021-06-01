@@ -1,4 +1,3 @@
-// import schema from './schema';
 import { handlerPath } from 'utilities-techsweave';
 
 export default {
@@ -6,11 +5,14 @@ export default {
     events: [
         {
             http: {
-                method: 'get',
-                path: 'products/{id}',
+                method: 'delete',
+                path: 'orders/{id}',
                 cors: true
+            },
+            authorizer: {
+                name: 'ApiGatewayAuthorizer',
+                arn: '${self:custom.cognitoArn}'
             }
         }
     ]
 };
-
