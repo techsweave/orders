@@ -26,9 +26,12 @@ const scanOrder = async (filter: any, userId?: string): Promise<{
     }
     const dbFilter: ScanOptions = {
         limit: filter.limit,
-        indexName: filter.indexName,
-        pageSize: filter.pageSize,
-        startKey: filter.startKey,
+        indexName: filter?.indexName,
+        pageSize: filter?.pageSize,
+        startKey: filter.startKey ? {
+            id: filter.startKey
+        } : undefined,
+        readConsistency: 'strong',
         filter: conditionFilter
     };
 
