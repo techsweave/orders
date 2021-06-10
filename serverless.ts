@@ -31,7 +31,7 @@ const serverlessConfiguration: AWS = {
             QUEUE: '${self:custom.queue}',
             S3ARN: '${self:custom.s3arn}',
             ORDERS_TABLE: '${self:custom.ordersTable}',
-            USER_POOL_ID: '{self:custom.userPoolId}'
+            USER_POOL_ID: '${self:custom.userPoolId}'
         },
 
         iam: {
@@ -86,7 +86,8 @@ const serverlessConfiguration: AWS = {
     plugins: [
         'serverless-webpack',
         'serverless-offline',
-        'serverless-dynamodb-local'
+        'serverless-dynamodb-local',
+        'serverless-export-env'
     ],
 
 

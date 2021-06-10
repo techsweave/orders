@@ -15,7 +15,7 @@ const deleteOrderHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (even
 
         if (await user.isVendor(process.env.USER_POOL_ID)) {
             throw {
-                name: 'userNotAllowed',
+                name: 'UserNotAllowed',
                 message: 'You must be a User to delete a order'
             };
         }

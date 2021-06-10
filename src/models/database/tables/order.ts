@@ -4,7 +4,22 @@ import {
     table
 } from '@aws/dynamodb-data-mapper-annotations';
 
+import { embed } from '@aws/dynamodb-data-mapper';
 import { Models } from 'utilities-techsweave';
+
+
+class OrderedProduct implements Models.Tables.IOrderedProduct {
+
+    @attribute()
+    quantity: number;
+
+    @attribute()
+    productId: string;
+
+    @attribute()
+    price: number;
+}
+
 
 /*
  * This class rappresent a product item in products table
@@ -23,9 +38,11 @@ class Order implements Models.Tables.IOrder {
     @attribute()
     status: string;
 
-    @attribute()
-    products?: Models.Tables.IOrderedProduct[];
+    // @attribute()
+    // products?: Models.Tables.IOrderedProduct[];
 
+    @attribute({ memberType: embed(OrderedProduct) })
+    products?: Array<OrderedProduct>
 }
 
 export default Order;
