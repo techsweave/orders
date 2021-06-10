@@ -16,8 +16,14 @@ const createOrderHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = as
     try {
         const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
 
-        const order: Order = new Order();
+        if (await user.isVendor(process.env.USER_POOL_ID)) {
+            throw {
+                name: 'UserNotAllowed',
+                message: 'You must be a User to delete a order'
+            };
+        }
 
+        const order: Order = new Order();
         order.userId = await user.getUserId();
         order.status = event.body.status;
         order.products = event.body?.products;
