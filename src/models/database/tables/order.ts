@@ -8,7 +8,7 @@ import { embed } from '@aws/dynamodb-data-mapper';
 import { Models } from 'utilities-techsweave';
 
 
-class OrderedProduct implements Models.Tables.IOrderedProduct {
+export class OrderedProduct implements Models.Tables.IOrderedProduct {
 
     @attribute()
     quantity: number;
