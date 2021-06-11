@@ -6,7 +6,7 @@ const updateStatus = async (id: string, status: string, userId: string): Promise
 
     status = status.toUpperCase();
 
-    if (status == 'SUCCESS' || status == 'FAIL') {
+    if (status != 'SUCCESS' && status != 'FAIL') {
         throw {
             name: 'NotAValidStatus',
             message: 'This is not a valid order status'
@@ -32,7 +32,9 @@ const updateStatus = async (id: string, status: string, userId: string): Promise
         };
     }
 
-    return dbContext.put(item);
+    order.status = status;
+
+    return dbContext.put(order);
 };
 
 export default updateStatus;
