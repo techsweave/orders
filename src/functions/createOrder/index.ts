@@ -4,7 +4,7 @@ export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
     events: [
         {
-            sqs: 'https://sqs.eu-central-1.amazonaws.com/780844780884/createOrder'
+            sqs: 'arn:aws:sqs:eu-central-1:780844780884:createOrder'
         }
     ]
 };
