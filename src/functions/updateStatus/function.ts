@@ -2,10 +2,22 @@ import dbContext from '@dbModel/dbContext';
 import Order from '@dbModel/tables/order';
 import getOrder from '../getOrder/function';
 
-const deleteOrder = async (id: string, userId: string): Promise<Order> => {
+const updateStatus = async (id: string, status: string, userId: string): Promise<Order> => {
+
+    status = status.toUpperCase();
+
+    if (status == 'SUCCESS' || status == 'FAIL') {
+        throw {
+            name: 'NotAValidStatus',
+            message: 'This is not a valid order status'
+        };
+    }
+
     const item: Order = new Order();
     item.id = id;
+
     const order: Order = await getOrder(id, userId);
+
     if (order.userId != userId) {
         throw {
             name: 'UserNotAllowed',
@@ -16,10 +28,11 @@ const deleteOrder = async (id: string, userId: string): Promise<Order> => {
     if (order.status != 'IN PROGRESS') {
         throw {
             name: 'OrderAlreadyCompleted',
-            message: 'It is not possible to delete an order that has already been completed'
+            message: 'It is not possible to change the status of an order that has already been completed'
         };
     }
-    return dbContext.delete(item);
+
+    return dbContext.put(item);
 };
 
-export default deleteOrder;
+export default updateStatus;
