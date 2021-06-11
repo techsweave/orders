@@ -7,7 +7,7 @@ import schema from '@functions/updateStatus/schema';
 
 
 
-const deleteOrderHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const updateStatusHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     let res: Response<Order>;
     try {
 
@@ -23,10 +23,11 @@ const deleteOrderHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = as
         res = Response.fromData<Order>(
             await updateStatus(event.pathParameters.id, event.body.status, await user.getUserId()),
             StatusCodes.OK);
+
     } catch (error) {
         res = Response.fromError<Order>(error);
     }
     return res.toAPIGatewayProxyResult();
 };
 
-export const main = middyfy(deleteOrderHandler);
+export const main = middyfy(updateStatusHandler);
