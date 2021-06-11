@@ -2,8 +2,7 @@ import 'source-map-support/register';
 
 import Order from '@dbModel/tables/order';
 import createOrder from './function';
-import { middyfy, Response, AuthenticatedUser } from 'utilities-techsweave';
-import { StatusCodes } from 'http-status-codes';
+import { middyfy, AuthenticatedUser } from 'utilities-techsweave';
 import { SQSHandler, SQSEvent } from 'aws-lambda';
 
 /*
@@ -11,8 +10,6 @@ import { SQSHandler, SQSEvent } from 'aws-lambda';
  * In this case event.body type is type of 'Order'
 */
 const createOrderHandler: SQSHandler = async (event: SQSEvent) => {
-    let res: Response<Order>;
-
     try {
         const record = event.Records[0].messageAttributes;
         const user: AuthenticatedUser = await AuthenticatedUser.fromToken(record.accessToken?.stringValue);
@@ -29,12 +26,13 @@ const createOrderHandler: SQSHandler = async (event: SQSEvent) => {
         order.status = 'IN PROGRESS';
         order.products = JSON.parse(record.products?.stringValue);
 
-        res = Response.fromData<Order>(await createOrder(order, record.accessToken?.stringValue), StatusCodes.CREATED);
+        await createOrder(order, record.accessToken?.stringValue);
 
     } catch (error) {
-        res = Response.fromError<Order>(error);
+        // To CloudWath!!
+        console.log('ERROR');
+        console.log(error);
     }
-    return res.toAPIGatewayProxyResult();
 };
 
 export const main = middyfy(createOrderHandler);
