@@ -34,7 +34,7 @@ const updateStatus = async (id: string, status: string, userId: string): Promise
 
     order.status = status;
 
-    return dbContext.put(order);
+    return dbContext.update(order, { onMissing: 'skip' });
 };
 
 export default updateStatus;
