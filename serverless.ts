@@ -4,7 +4,8 @@ import {
     createOrder,
     deleteOrder,
     getOrder,
-    scanOrder
+    scanOrder,
+    updateStatus
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -96,7 +97,8 @@ const serverlessConfiguration: AWS = {
         createOrder,
         deleteOrder,
         getOrder,
-        scanOrder
+        scanOrder,
+        updateStatus
     },
 
 };
