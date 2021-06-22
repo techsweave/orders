@@ -1,6 +1,7 @@
 import dbContext from '@dbModel/dbContext';
 import Order from '@dbModel/tables/order';
 import { ScanOptions } from '@aws/dynamodb-data-mapper';
+import { ConditionExpression } from '@aws/dynamodb-expressions';
 import { objectToConditionExpression } from 'utilities-techsweave';
 
 
@@ -12,17 +13,21 @@ const scanOrder = async (filter: any, userId?: string): Promise<{
     let lastKey: Partial<Order>;
     let conditionFilter = await objectToConditionExpression(filter.filter);
     if (userId) {
-        conditionFilter = {
-            type: 'And',
-            conditions: [
-                {
-                    type: 'Equals',
-                    subject: 'userId',
-                    object: userId
-                },
-                conditionFilter
-            ]
+        const equalsToUserIdFilter: ConditionExpression = {
+            type: 'Equals',
+            subject: 'userId',
+            object: userId
         };
+        if (conditionFilter)
+            conditionFilter = {
+                type: 'And',
+                conditions: [
+                    equalsToUserIdFilter,
+                    conditionFilter
+                ]
+            };
+        else
+            conditionFilter = equalsToUserIdFilter;
     }
     const dbFilter: ScanOptions = {
         limit: filter.limit,
