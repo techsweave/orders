@@ -7,7 +7,13 @@ export default {
             http: {
                 method: 'delete',
                 path: 'orders/{id}',
-                cors: true
+                cors: {
+                    origin: '*',
+                    allowCredentials: true,
+                    headers: [
+                        '*'
+                    ]
+                },
             },
             authorizer: {
                 name: 'ApiGatewayAuthorizer',

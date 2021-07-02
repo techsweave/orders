@@ -8,7 +8,13 @@ export default {
             http: {
                 method: 'post',
                 path: 'orders/filter',
-                cors: true,
+                cors: {
+                    origin: '*',
+                    allowCredentials: true,
+                    headers: [
+                        '*'
+                    ]
+                },
                 request: {
                     schemas: {
                         'application/json': schema

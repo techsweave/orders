@@ -7,7 +7,13 @@ export default {
             http: {
                 method: 'get',
                 path: 'orders/{id}',
-                cors: true,
+                cors: {
+                    origin: '*',
+                    allowCredentials: true,
+                    headers: [
+                        '*'
+                    ]
+                },
                 authorizer: {
                     name: 'ApiGatewayAuthorizer',
                     arn: '${self:custom.cognitoArn}'
