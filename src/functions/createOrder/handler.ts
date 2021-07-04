@@ -12,7 +12,7 @@ import { SQSHandler, SQSEvent } from 'aws-lambda';
 const createOrderHandler: SQSHandler = async (event: SQSEvent) => {
     try {
         const record = event.Records[0].messageAttributes;
-        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(record.accessToken?.stringValue);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(record.accesstoken?.stringValue);
 
         if (await user.isVendor(process.env.USER_POOL_ID)) {
             throw {
@@ -26,7 +26,7 @@ const createOrderHandler: SQSHandler = async (event: SQSEvent) => {
         order.status = 'IN PROGRESS';
         order.products = JSON.parse(record.products?.stringValue);
 
-        await createOrder(order, record.accessToken?.stringValue);
+        await createOrder(order, record.accesstoken?.stringValue);
 
     } catch (error) {
         // To CloudWath!!

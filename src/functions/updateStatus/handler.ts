@@ -11,7 +11,7 @@ const updateStatusHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = a
     let res: Response<Order>;
     try {
 
-        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.accessToken);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.accesstoken);
 
         if (await user.isVendor(process.env.USER_POOL_ID)) {
             throw {
