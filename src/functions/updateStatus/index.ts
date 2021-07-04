@@ -8,8 +8,18 @@ export default {
             http: {
                 method: 'put',
                 path: 'orders/{id}',
-                cors: true,
-                schema
+                cors: {
+                    origin: '*',
+                    allowCredentials: true,
+                    headers: [
+                        '*'
+                    ]
+                },
+                request: {
+                    schemas: {
+                        'application/json': schema
+                    }
+                },
             },
             authorizer: {
                 name: 'ApiGatewayAuthorizer',

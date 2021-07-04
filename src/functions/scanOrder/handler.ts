@@ -16,7 +16,7 @@ const scanOrderHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = asyn
     let res: Response<Order> = new Response<Order>();
 
     try {
-        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.accessToken);
         const userId: string = await user.isVendor(process.env.USER_POOL_ID) ? null : await user.getUserId();
 
         const result = await scanOrder(event.body, userId);
