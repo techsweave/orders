@@ -32,7 +32,7 @@ const createOrder = async (item: Order, accessToken: string): Promise<Order> => 
     }
 
     const messageAttributes: AWS.SNS.MessageAttributeMap = {
-        accessToken: {
+        accesstoken: {
             DataType: 'String',
             StringValue: accessToken
         }
