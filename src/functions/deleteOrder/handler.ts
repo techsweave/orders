@@ -11,7 +11,7 @@ const deleteOrderHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (even
     let res: Response<Order>;
     try {
 
-        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
+        const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.accesstoken);
 
         if (await user.isVendor(process.env.USER_POOL_ID)) {
             throw {
