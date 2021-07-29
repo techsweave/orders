@@ -1,8 +1,9 @@
 import dbContext from '@dbModel/dbContext';
 import Order from '@dbModel/tables/order';
 import getOrder from '../getOrder/function';
+import * as AWS from 'aws-sdk';
 
-const updateStatus = async (id: string, status: string, userId: string): Promise<Order> => {
+const updateStatus = async (id: string, status: string, userId: string, accessToken: string): Promise<Order> => {
 
     status = status.toUpperCase();
 
@@ -33,6 +34,22 @@ const updateStatus = async (id: string, status: string, userId: string): Promise
     }
 
     order.status = status;
+
+    const messageAttributes: AWS.SNS.MessageAttributeMap = {
+        accesstoken: {
+            DataType: 'String',
+            StringValue: accessToken
+        }
+    };
+
+    const sns = new AWS.SNS();
+    const params: AWS.SNS.PublishInput = {
+        Message: 'createNewOrder',
+        TopicArn: 'arn:aws:sqs:eu-central-1:780844780884:deleteCart',
+        MessageAttributes: messageAttributes
+    };
+
+    await sns.publish(params).promise();
 
     return dbContext.update(order, { onMissing: 'skip' });
 };

@@ -21,7 +21,7 @@ const updateStatusHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = a
         }
 
         res = Response.fromData<Order>(
-            await updateStatus(event.pathParameters.id, event.body.status, await user.getUserId()),
+            await updateStatus(event.pathParameters.id, event.body.status, await user.getUserId(), event.headers?.accesstoken),
             StatusCodes.OK);
 
     } catch (error) {

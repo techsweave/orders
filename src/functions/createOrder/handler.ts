@@ -26,7 +26,7 @@ const createOrderHandler: SQSHandler = async (event: SQSEvent) => {
         order.status = 'IN PROGRESS';
         order.products = JSON.parse(record.products?.stringValue);
 
-        await createOrder(order, record.accesstoken?.stringValue);
+        await createOrder(order);
 
     } catch (error) {
         // To CloudWath!!
