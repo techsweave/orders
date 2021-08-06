@@ -45,7 +45,7 @@ const updateStatus = async (id: string, status: string, userId: string, accessTo
     const sns = new AWS.SNS();
     const params: AWS.SNS.PublishInput = {
         Message: 'createNewOrder',
-        TopicArn: 'arn:aws:sqs:eu-central-1:780844780884:deleteCart',
+        TopicArn: 'arn:aws:sns:eu-central-1:780844780884:deleteCart',
         MessageAttributes: messageAttributes
     };
 
