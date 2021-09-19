@@ -47,6 +47,12 @@ const scanOrder = async (filter: any, userId?: string): Promise<{
         lastKey = paginator.lastEvaluatedKey;
     }
 
+    items.sort((a, b) => {
+        if (a.date < b.date) return -1;
+        if (a.date > b.date) return 1;
+        return 0;
+    });
+
     return Promise.resolve({
         items: items,
         lastKey: lastKey
